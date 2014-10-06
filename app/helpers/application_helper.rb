@@ -17,20 +17,18 @@ module ApplicationHelper
   end
 
   def publisher_token
-    unless Rails.env.test?
       digest = OpenSSL::Digest::Digest.new('sha256')
       secret = Rails.configuration.publisher[:secret]
       data   = "/#{publisher_environment}/planning-poker/subscribe"
 
       OpenSSL::HMAC.hexdigest(digest, secret, data)
-    end
   end
 
   def broadcast(channel, &block)
-    unless Rails.env.test?
       message = { channel: channel, data: capture(&block), ext: { token: publisher_token }}
       uri     = URI.parse("http://#{publisher_domain}/faye")
 
+    unless Rails.env.test?
       Net::HTTP.post_form(uri, message: message.to_json)
     end
   end
