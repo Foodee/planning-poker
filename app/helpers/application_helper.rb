@@ -17,11 +17,11 @@ module ApplicationHelper
   end
 
   def publisher_token
-      digest = OpenSSL::Digest::Digest.new('sha256')
-      secret = Rails.configuration.publisher[:secret]
-      data   = "/#{publisher_environment}/planning-poker/subscribe"
+    digest = OpenSSL::Digest::Digest.new('sha256')
+    secret = Rails.configuration.publisher[:secret]
+    data   = "/#{publisher_environment}/planning-poker/subscribe"
 
-      OpenSSL::HMAC.hexdigest(digest, secret, data)
+    OpenSSL::HMAC.hexdigest(digest, secret, data)
   end
 
   def broadcast(channel, &block)
