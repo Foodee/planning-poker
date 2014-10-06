@@ -77,12 +77,4 @@ PlanningPokerRails::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  # Publisher for push notification
-  config.publisher = {
-    # production faye server - change the URL so that it points to the correct server.
-    domain: (ENV['FAYE_URL'] || 'localhost:9292'),
-    # secret key
-    secret: (ENV['FAYE_SECRET'] || 'secret')
-  }
 end
